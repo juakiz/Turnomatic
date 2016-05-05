@@ -1,8 +1,10 @@
 package Turnomatic;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import Turnomatic.modelo.Turno;
+import Turnomatic.vista.ConfigWindowController;
 import Turnomatic.vista.InterfazCorreosController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -11,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class MainApp extends Application {
@@ -19,26 +22,33 @@ public class MainApp extends Application {
     private BorderPane rootLayout;
 
     /**
-     * The data as an observable list of Persons.
+     * Los datos como listas observables
      */
     private ObservableList<Turno> colaData = FXCollections.observableArrayList();
+    private ObservableList<String> servicios = FXCollections.observableArrayList();
 
     /**
-     * Constructor
-     */
+     * Constructor que añade datos de testeo iniciales
+     *
     public MainApp() {
-        // Add some sample data
-        colaData.add(new Turno("1", "Pagar"));
-        colaData.add(new Turno("2", "Enviar"));
-        colaData.add(new Turno("3", "Recibir"));
+        //Add some sample data
+        colaData.add(new Turno("Pagar"));
+        colaData.add(new Turno("Enviar"));
+        colaData.add(new Turno("Recibir"));
+        servicios.add("Pagar");
+        servicios.add("Enviar");
+        servicios.add("Recibir");
+
     }
 
     /**
-     * Returns the data as an observable list of Persons.
-     * @return
+     * Devuelve datos como observable list.
      */
     public ObservableList<Turno> getColaData() {
         return colaData;
+    }
+    public ObservableList<String> getServicios() {
+        return servicios;
     }
 
     @Override
@@ -48,20 +58,20 @@ public class MainApp extends Application {
 
         initRootLayout();
 
-        showPersonOverview();
+        muestraInterfazCorreos();
     }
 
     /**
-     * Initializes the root layout.
+     * Inicializa el root layout.
      */
     public void initRootLayout() {
         try {
-            // Load root layout from fxml file.
+            // Lo carga del fxml.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("vista/RootLayout.fxml"));
             rootLayout = loader.load();
 
-            // Show the scene containing the root layout.
+            // Muestra la escena conteniendo el root layout.
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
             primaryStage.show();
@@ -71,19 +81,19 @@ public class MainApp extends Application {
     }
 
     /**
-     * Shows the person overview inside the root layout.
+     * Muestra la InterfazCorreos dentro de la root layout.
      */
-    public void showPersonOverview() {
+    public void muestraInterfazCorreos() {
         try {
-            // Load person overview.
+            // Carga InterfazCorreos.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("vista/InterfazCorreos.fxml"));
             AnchorPane personOverview = loader.load();
 
-            // Set person overview into the center of root layout.
+            // Establece InterfazCorreos en el centro de root layout.
             rootLayout.setCenter(personOverview);
 
-            // Give the controller access to the main app.
+            // Da al controlador acceso al main.
             InterfazCorreosController controller = loader.getController();
             controller.setMainApp(this);
 
@@ -92,12 +102,58 @@ public class MainApp extends Application {
         }
     }
 
+    public void setTurnoColaData (Turno turno){
+        colaData.add(turno);
+    }
+
+    public void setServicios (String servicios){
+        this.servicios.add(servicios);
+    }
+
     /**
-     * Returns the main stage.
-     * @return
+     * Devuelve el Stage principal
      */
     public Stage getPrimaryStage() {
         return primaryStage;
+    }
+
+    /**
+     * Abre una pantalla emergente para que el usuario rellene la configuración de la oficina.
+     * Devuelve true si le da a OK.
+     *
+     */
+    public boolean muestraConfigWindow() {
+        try {
+            //Carga el archivo fxml y crea una nueva Stage para la pantalla emergente.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("vista/ConfigWindow.fxml"));
+            AnchorPane page = loader.load();
+
+            // Crea el dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Configuracion de Nueva Oficina");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            //Establece los servicios en el controlador
+            ConfigWindowController controller = loader.getController();
+            controller.setConfigWindow(dialogStage);
+            servicios.addAll(controller.getServicios());
+
+
+            // Muestra el dialogo y espera a q el usuario lo cierre
+            dialogStage.showAndWait();
+
+            for(String aux:controller.getServicios())  servicios.add(aux);
+            //for(String aux:servicios)   System.out.println(aux);
+
+            return controller.isOkClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public static void main(String[] args) {

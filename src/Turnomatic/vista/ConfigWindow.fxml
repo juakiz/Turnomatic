@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Turnomatic.vista.ConfigWindowController">
+   <children>
+      <HBox layoutX="429.0" layoutY="368.0" spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="15.0">
+         <children>
+            <Button layoutX="429.0" layoutY="368.0" mnemonicParsing="false" onAction="#handleAceptar" text="Aceptar" />
+            <Button layoutX="511.0" layoutY="368.0" mnemonicParsing="false" onAction="#handleCancelar" text="Cancelar" />
+         </children>
+      </HBox>
+      <SplitPane dividerPositions="0.5" layoutX="165.0" layoutY="62.0" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" SplitPane.resizableWithParent="false">
+               <children>
+                  <GridPane layoutX="14.0" layoutY="68.0" prefHeight="328.0" prefWidth="280.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                    <columnConstraints>
+                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="114.0" minWidth="10.0" prefWidth="60.0" />
+                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="218.0" minWidth="10.0" prefWidth="180.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label text="Empleados:" GridPane.columnIndex="1">
+                           <font>
+                              <Font size="16.0" />
+                           </font></Label>
+                        <TextField fx:id="mesa1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="mesa2" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="mesa3" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="mesa4" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField fx:id="mesa5" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <Label text="Mesa 1" GridPane.rowIndex="1" />
+                        <Label text="Mesa 2" GridPane.rowIndex="2" />
+                        <Label text="Mesa 3" GridPane.rowIndex="3" />
+                        <Label text="Mesa 4" GridPane.rowIndex="4" />
+                        <Label text="Mesa 5" GridPane.rowIndex="5" />
+                     </children>
+                  </GridPane>
+               </children></AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="328.0" prefWidth="330.0" SplitPane.resizableWithParent="false">
+               <children>
+                  <GridPane layoutY="91.0" prefHeight="328.0" prefWidth="280.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                    <columnConstraints>
+                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label text="Servicios:">
+                           <font>
+                              <Font size="16.0" />
+                           </font></Label>
+                        <TextField fx:id="servicio1" GridPane.rowIndex="1" />
+                        <TextField fx:id="servicio2" GridPane.rowIndex="2" />
+                        <TextField fx:id="servicio3" GridPane.rowIndex="3" />
+                        <TextField fx:id="servicio4" GridPane.rowIndex="4" />
+                        <TextField fx:id="servicio5" GridPane.rowIndex="5" />
+                     </children>
+                  </GridPane>
+               </children></AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

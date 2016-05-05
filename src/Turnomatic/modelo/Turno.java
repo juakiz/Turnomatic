@@ -8,23 +8,25 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 /**
- * Model class for a Person.
+ * Model turno.
  *
- * @author Marco Jakob
  */
 public class Turno {
 
     private final StringProperty numero;
     private final StringProperty servicio;
-
+    //Contador para autoincrementar el número de turno.
+    private static int contador=1;
 
     /**
-     * Constructor with some initial data.
+     * Constructor, getter y setter.
      *
      */
-    public Turno(String numero, String servicio) {
-        this.numero = new SimpleStringProperty(numero);
+    public Turno(String servicio) {
+        this.numero = new SimpleStringProperty(Integer.toString(contador));
         this.servicio = new SimpleStringProperty(servicio);
+        //maneja el autoincremento del turno
+        contador++;
     }
 
     public String getNumero() {
@@ -35,8 +37,9 @@ public class Turno {
         return numero;
     }
 
-    public void setNumero(String numero) {
-        this.numero.set(numero);
+    public void setNumero() {
+        this.numero.set(Integer.toString(contador));
+        contador++;
     }
 
     public String getServicio() {
