@@ -47,8 +47,8 @@ public class ConfigWindowController {
         return oficina.getServicios();
     }
 */
-    ArrayList<String> empleados = new ArrayList<>();
-    ArrayList<String> servicios = new ArrayList<>();
+    private ArrayList<String> empleados = new ArrayList<>();
+    private ArrayList<String> servicios = new ArrayList<>();
 
     public ArrayList<String> getEmpleados() {
         return empleados;
@@ -74,7 +74,7 @@ public class ConfigWindowController {
     }
 
     /**
-     * Co una booleana se controla si dio ok o no..
+     * Con una booleana se controla si dio ok o no..
      *
      */
 
@@ -128,6 +128,8 @@ public class ConfigWindowController {
 
         } else {
             // No se eligieron empleados y/o servicios.
+            empleados.clear();
+            servicios.clear();
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Ninguna seleccion");
             alert.setHeaderText(null);

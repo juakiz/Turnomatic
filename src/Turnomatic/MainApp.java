@@ -26,6 +26,7 @@ public class MainApp extends Application {
      */
     private ObservableList<Turno> colaData = FXCollections.observableArrayList();
     private ObservableList<String> servicios = FXCollections.observableArrayList();
+    private ObservableList<String> empleados = FXCollections.observableArrayList();
 
     /**
      * Constructor que añade datos de testeo iniciales
@@ -39,6 +40,7 @@ public class MainApp extends Application {
         servicios.add("Enviar");
         servicios.add("Recibir");
 
+
     }
 
     /**
@@ -49,6 +51,9 @@ public class MainApp extends Application {
     }
     public ObservableList<String> getServicios() {
         return servicios;
+    }
+    public ObservableList<String> getEmpleados() {
+        return empleados;
     }
 
     @Override
@@ -102,13 +107,27 @@ public class MainApp extends Application {
         }
     }
 
+    /**
+     * Metodos para agregar y eliminar turnos a la tabla y agregarlos a las mesas
+     */
+    public Turno getTurnoColaData (){
+        return colaData.get(0);
+    }
     public void setTurnoColaData (Turno turno){
         colaData.add(turno);
     }
-
-    public void setServicios (String servicios){
-        this.servicios.add(servicios);
+    public void delTurnoColaData (){
+        colaData.remove(0);
     }
+    public boolean isEmptyTurnoColaData(){
+        if(colaData.size()<=0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //public void setServicios (String servicios){ this.servicios.add(servicios);}
 
     /**
      * Devuelve el Stage principal
@@ -140,14 +159,13 @@ public class MainApp extends Application {
             //Establece los servicios en el controlador
             ConfigWindowController controller = loader.getController();
             controller.setConfigWindow(dialogStage);
-            servicios.addAll(controller.getServicios());
-
 
             // Muestra el dialogo y espera a q el usuario lo cierre
             dialogStage.showAndWait();
 
-            for(String aux:controller.getServicios())  servicios.add(aux);
-            //for(String aux:servicios)   System.out.println(aux);
+            servicios.addAll(controller.getServicios());
+            empleados.addAll(controller.getEmpleados());
+
 
             return controller.isOkClicked();
         } catch (IOException e) {
@@ -160,3 +178,4 @@ public class MainApp extends Application {
         launch(args);
     }
 }
+

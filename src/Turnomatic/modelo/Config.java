@@ -15,9 +15,7 @@ public class Config {
         return empleados;
     }
 
-    public void setEmpleados(ArrayList<String> empleados) {
-        this.empleados = empleados;
-    }
+    public void setEmpleados(ArrayList<String> empleados) { this.empleados = empleados; }
 
     public ArrayList<String> getServicios() {
         return servicios;
