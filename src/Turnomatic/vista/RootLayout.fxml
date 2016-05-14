@@ -16,7 +16,7 @@
         <MenuItem mnemonicParsing="false" text="Cerrar" />
       </items>
     </Menu>
-    <Menu mnemonicParsing="false" text="HIstorial">
+    <Menu mnemonicParsing="false" text="Historial">
       <items>
                   <MenuItem mnemonicParsing="false" text="Ver" />
         <MenuItem mnemonicParsing="false" text="Guardar" />

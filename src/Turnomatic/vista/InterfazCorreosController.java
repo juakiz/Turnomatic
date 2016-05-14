@@ -74,7 +74,7 @@ public class InterfazCorreosController {
     private Label empleado5;
 
 
-    //Mesas
+    //Contenedor de las mesas
     @FXML
     private GridPane fila1;
     @FXML
@@ -113,7 +113,6 @@ public class InterfazCorreosController {
     private MainApp mainApp;
 
 
-
     /**
      * Esto inicializa la clase controlador, todos los metodos dentro ajustan la vista inicial.
      */
@@ -130,7 +129,6 @@ public class InterfazCorreosController {
 
     /**
      * Es llamado por el main para obtener una referencia de si misma.
-     *
      */
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
@@ -146,8 +144,8 @@ public class InterfazCorreosController {
 
 
     @FXML
-    private void handlePedirTurno(ActionEvent event){
-        if(ServiciosBox.getValue() != null && ServiciosBox.getValue().length() != 0) {
+    private void handlePedirTurno(ActionEvent event) {
+        if (ServiciosBox.getValue() != null && ServiciosBox.getValue().length() != 0) {
             Turno turno = new Turno(ServiciosBox.getValue());
             mainApp.setTurnoColaData(turno);
         } else {
@@ -160,14 +158,13 @@ public class InterfazCorreosController {
         }
 
 
-
     }
 
     /**
      * Es llamado cuando pinchas en nueva oficina.
      */
     @FXML
-    private void handleNuevaOficina(ActionEvent event){
+    private void handleNuevaOficina(ActionEvent event) {
 
         boolean okClicked = mainApp.muestraConfigWindow();
         if (okClicked) {
@@ -185,31 +182,17 @@ public class InterfazCorreosController {
             fila3.setDisable(false);
             fila4.setDisable(false);
             fila5.setDisable(false);
-            if (mainApp.getEmpleados().size()>=1) empleado1.setText(mainApp.getEmpleados().get(0)); else fila1.setVisible(false);
-            if (mainApp.getEmpleados().size()>=2) empleado2.setText(mainApp.getEmpleados().get(1)); else fila2.setVisible(false);
-            if (mainApp.getEmpleados().size()>=3) empleado3.setText(mainApp.getEmpleados().get(2)); else fila3.setVisible(false);
-            if (mainApp.getEmpleados().size()>=4) empleado4.setText(mainApp.getEmpleados().get(3)); else fila4.setVisible(false);
-            if (mainApp.getEmpleados().size()>=5) empleado5.setText(mainApp.getEmpleados().get(4)); else fila5.setVisible(false);
+            if (mainApp.getEmpleados().size() >= 1) empleado1.setText(mainApp.getEmpleados().get(0));
+            else fila1.setVisible(false);
+            if (mainApp.getEmpleados().size() >= 2) empleado2.setText(mainApp.getEmpleados().get(1));
+            else fila2.setVisible(false);
+            if (mainApp.getEmpleados().size() >= 3) empleado3.setText(mainApp.getEmpleados().get(2));
+            else fila3.setVisible(false);
+            if (mainApp.getEmpleados().size() >= 4) empleado4.setText(mainApp.getEmpleados().get(3));
+            else fila4.setVisible(false);
+            if (mainApp.getEmpleados().size() >= 5) empleado5.setText(mainApp.getEmpleados().get(4));
+            else fila5.setVisible(false);
 
-            /*
-            switch(mainApp.getEmpleados().size()){
-                case 5:
-                    empleado5.setText(mainApp.getEmpleados().get(4));
-                    fila5.setVisible(true);
-                case 4:
-                    empleado4.setText(mainApp.getEmpleados().get(3));
-                    fila4.setVisible(true);
-                case 3:
-                    empleado3.setText(mainApp.getEmpleados().get(2));
-                    fila3.setVisible(true);
-                case 2:
-                    empleado2.setText(mainApp.getEmpleados().get(1));
-                    fila2.setVisible(true);
-                case 1:
-                    empleado1.setText(mainApp.getEmpleados().get(0));
-                    fila1.setVisible(true);
-            }
-            */
         }
 
     }
@@ -218,43 +201,20 @@ public class InterfazCorreosController {
      * Controla los botones que liberan las mesas
      */
     @FXML
-    private void handleLiberar(ActionEvent event){
+    private void handleLiberar(ActionEvent event) {
 
-        if(!mainApp.isEmptyTurnoColaData()) {
+        if (!mainApp.isEmptyTurnoColaData()) {
 
             //Establece la etiqueta del turno actual
             turnoActual.setText(mainApp.getTurnoColaData().getNumero());
 
             //Administra la solicitud de turno dependiendo del boton pulsado
-            if (event.getSource() == liberar1) {
-                turno1.setText(mainApp.getTurnoColaData().getNumero());
-                servicio1.setText(mainApp.getTurnoColaData().getServicio());
-                mainApp.delTurnoColaData();
-            }
+            solicitaTurno(event,liberar1,turno1,mainApp,servicio1);
+            solicitaTurno(event,liberar2,turno2,mainApp,servicio2);
+            solicitaTurno(event,liberar3,turno3,mainApp,servicio3);
+            solicitaTurno(event,liberar4,turno4,mainApp,servicio4);
+            solicitaTurno(event,liberar5,turno5,mainApp,servicio5);
 
-            if (event.getSource() == liberar2) {
-                turno2.setText(mainApp.getTurnoColaData().getNumero());
-                servicio2.setText(mainApp.getTurnoColaData().getServicio());
-                mainApp.delTurnoColaData();
-            }
-
-            if (event.getSource() == liberar3) {
-                turno3.setText(mainApp.getTurnoColaData().getNumero());
-                servicio3.setText(mainApp.getTurnoColaData().getServicio());
-                mainApp.delTurnoColaData();
-            }
-
-            if (event.getSource() == liberar4) {
-                turno4.setText(mainApp.getTurnoColaData().getNumero());
-                servicio4.setText(mainApp.getTurnoColaData().getServicio());
-                mainApp.delTurnoColaData();
-            }
-
-            if (event.getSource() == liberar5) {
-                turno5.setText(mainApp.getTurnoColaData().getNumero());
-                servicio5.setText(mainApp.getTurnoColaData().getServicio());
-                mainApp.delTurnoColaData();
-            }
         } else {
             // Cola vacia.
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -265,93 +225,49 @@ public class InterfazCorreosController {
         }
     }
 
+    //Administra la solicitud de turno dependiendo del boton pulsado
+    public static void solicitaTurno(ActionEvent event, Button liberar, Label turno, MainApp mainApp, Label servicio){
+        if (event.getSource() == liberar) {
+            turno.setText(mainApp.getTurnoColaData().getNumero());
+            servicio.setText(mainApp.getTurnoColaData().getServicio());
+            mainApp.delTurnoColaData();
+        }
+    }
+
     /**
      * Controla los botones que bloquean las mesas
      */
     @FXML
     private void handleBloquear(ActionEvent event) {
 
-        //Administra el bloqueo de la mesa dependiendo del boton pulsado
-        if (event.getSource() == bloquear1) {
-            if(bloquear1.isSelected()){
-                turno1.setText("-");
-                servicio1.setText("-");
-                turno1.setDisable(true);
-                servicio1.setDisable(true);
-                empleado1.setDisable(true);
-                liberar1.setDisable(true);
+        bloqueoMesa(event,bloquear1,turno1,servicio1,empleado1,liberar1);
+        bloqueoMesa(event,bloquear2,turno2,servicio2,empleado2,liberar2);
+        bloqueoMesa(event,bloquear3,turno3,servicio3,empleado3,liberar3);
+        bloqueoMesa(event,bloquear4,turno4,servicio4,empleado4,liberar4);
+        bloqueoMesa(event,bloquear5,turno5,servicio5,empleado5,liberar5);
+
+    }
+
+
+    //Administra el bloqueo de la mesa dependiendo del boton pulsado
+    public static void bloqueoMesa(ActionEvent event, ToggleButton bloquear, Label turno, Label servicio,
+                                   Label empleado, Button liberar) {
+
+        if (event.getSource() == bloquear) {
+            if (bloquear.isSelected()) {
+                turno.setText("-");
+                servicio.setText("-");
+                turno.setDisable(true);
+                servicio.setDisable(true);
+                empleado.setDisable(true);
+                liberar.setDisable(true);
             } else {
-                turno1.setDisable(false);
-                servicio1.setDisable(false);
-                empleado1.setDisable(false);
-                liberar1.setDisable(false);
+                turno.setDisable(false);
+                servicio.setDisable(false);
+                empleado.setDisable(false);
+                liberar.setDisable(false);
             }
         }
-
-        if (event.getSource() == bloquear2) {
-            if(bloquear2.isSelected()){
-                turno2.setText("-");
-                servicio2.setText("-");
-                turno2.setDisable(true);
-                servicio2.setDisable(true);
-                empleado2.setDisable(true);
-                liberar2.setDisable(true);
-            } else {
-                turno2.setDisable(false);
-                servicio2.setDisable(false);
-                empleado2.setDisable(false);
-                liberar2.setDisable(false);
-            }
-        }
-
-        if (event.getSource() == bloquear3) {
-            if(bloquear3.isSelected()){
-                turno3.setText("-");
-                servicio3.setText("-");
-                turno3.setDisable(true);
-                servicio3.setDisable(true);
-                empleado3.setDisable(true);
-                liberar3.setDisable(true);
-            } else {
-                turno3.setDisable(false);
-                servicio3.setDisable(false);
-                empleado3.setDisable(false);
-                liberar3.setDisable(false);
-            }
-        }
-
-        if (event.getSource() == bloquear4) {
-            if(bloquear4.isSelected()){
-                turno4.setText("-");
-                servicio4.setText("-");
-                turno4.setDisable(true);
-                servicio4.setDisable(true);
-                empleado4.setDisable(true);
-                liberar4.setDisable(true);
-            } else {
-                turno4.setDisable(false);
-                servicio4.setDisable(false);
-                empleado4.setDisable(false);
-                liberar4.setDisable(false);
-            }
-        }
-
-        if (event.getSource() == bloquear5) {
-            if(bloquear5.isSelected()){
-                turno5.setText("-");
-                servicio5.setText("-");
-                turno5.setDisable(true);
-                servicio5.setDisable(true);
-                empleado5.setDisable(true);
-                liberar5.setDisable(true);
-            } else {
-                turno5.setDisable(false);
-                servicio5.setDisable(false);
-                empleado5.setDisable(false);
-                liberar5.setDisable(false);
-            }
-        }
-
     }
 
 }
