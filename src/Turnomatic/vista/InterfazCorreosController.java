@@ -11,7 +11,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.layout.GridPane;
 
 import java.io.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 
 public class InterfazCorreosController {
@@ -225,15 +228,21 @@ public class InterfazCorreosController {
     //Administra la solicitud de turno dependiendo del boton pulsado
     public static void solicitaTurno(ActionEvent event, Button liberar, Label turno, MainApp mainApp, Label servicio){
         if (event.getSource() == liberar) {
-            //Añade el turno al log
+
+            //Añade el turno al log con fecha y hora
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            Calendar cal = Calendar.getInstance();
+            System.out.println(dateFormat.format(cal.getTime()));
             try(BufferedWriter bw=new BufferedWriter(new FileWriter("/home/juakiz/log.txt",true))){
                 bw.newLine();
-                bw.write("Turno: "+mainApp.getTurnoColaData().getNumero()+
+                bw.write(dateFormat.format(cal.getTime())+
+                        ": Turno: "+mainApp.getTurnoColaData().getNumero()+
                         " - Servicio: "+mainApp.getTurnoColaData().getServicio());
             }catch(IOException e){
                 System.out.println("Error E/S: "+e);
             }
 
+            //agrega el turno a la mesa
             turno.setText(mainApp.getTurnoColaData().getNumero());
             servicio.setText(mainApp.getTurnoColaData().getServicio());
             mainApp.delTurnoColaData();
