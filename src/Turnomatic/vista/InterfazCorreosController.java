@@ -9,9 +9,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.GridPane;
-import org.omg.CORBA.SystemException;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 
@@ -122,9 +121,6 @@ public class InterfazCorreosController {
         numeroColumn.setCellValueFactory(cellData -> cellData.getValue().numeroProperty());
         servicioColumn.setCellValueFactory(cellData -> cellData.getValue().servicioProperty());
 
-        //Inicializa los empleados por defecto
-
-
     }
 
     /**
@@ -203,6 +199,7 @@ public class InterfazCorreosController {
     @FXML
     private void handleLiberar(ActionEvent event) {
 
+        //Controla que la cola no este vacia
         if (!mainApp.isEmptyTurnoColaData()) {
 
             //Establece la etiqueta del turno actual
@@ -216,7 +213,7 @@ public class InterfazCorreosController {
             solicitaTurno(event,liberar5,turno5,mainApp,servicio5);
 
         } else {
-            // Cola vacia.
+            // Cola vacia
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Cola vacía");
             alert.setHeaderText(null);
@@ -228,9 +225,19 @@ public class InterfazCorreosController {
     //Administra la solicitud de turno dependiendo del boton pulsado
     public static void solicitaTurno(ActionEvent event, Button liberar, Label turno, MainApp mainApp, Label servicio){
         if (event.getSource() == liberar) {
+            //Añade el turno al log
+            try(BufferedWriter bw=new BufferedWriter(new FileWriter("/home/juakiz/log.txt",true))){
+                bw.newLine();
+                bw.write("Turno: "+mainApp.getTurnoColaData().getNumero()+
+                        " - Servicio: "+mainApp.getTurnoColaData().getServicio());
+            }catch(IOException e){
+                System.out.println("Error E/S: "+e);
+            }
+
             turno.setText(mainApp.getTurnoColaData().getNumero());
             servicio.setText(mainApp.getTurnoColaData().getServicio());
             mainApp.delTurnoColaData();
+
         }
     }
 

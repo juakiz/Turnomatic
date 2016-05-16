@@ -1,7 +1,9 @@
 package Turnomatic;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.prefs.Preferences;
 
 import Turnomatic.modelo.Turno;
 import Turnomatic.vista.ConfigWindowController;
@@ -27,6 +29,7 @@ public class MainApp extends Application {
     private ObservableList<Turno> colaData = FXCollections.observableArrayList();
     private ObservableList<String> servicios = FXCollections.observableArrayList();
     private ObservableList<String> empleados = FXCollections.observableArrayList();
+    private static ArrayList<String> log=new ArrayList<>();
 
     /**
      * Constructor que añade datos de testeo iniciales
@@ -162,6 +165,7 @@ public class MainApp extends Application {
 
             // Muestra el dialogo y espera a q el usuario lo cierre
             dialogStage.showAndWait();
+
 
             servicios.addAll(controller.getServicios());
             empleados.addAll(controller.getEmpleados());
